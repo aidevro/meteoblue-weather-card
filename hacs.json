@@ -1,0 +1,6 @@
+{
+    "name": "Meteoblue Weather Card",
+    "render_readme": true,
+    "filename": "meteoblue-weather-card.js",
+    "content_in_root": false
+  }

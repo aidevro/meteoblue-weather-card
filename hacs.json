@@ -1,6 +1,7 @@
 {
-  "name": "Meteoblue Weather Card",
-  "content_in_root": false,
+  "name": "Meteoblue Weather Card & Integration",
   "render_readme": true,
-  "filename": "meteoblue-weather-card.js"
+  "filename": "meteoblue-weather-card.js",
+  "domains": ["meteoblue"],
+  "homeassistant": "2023.8.0"
 }

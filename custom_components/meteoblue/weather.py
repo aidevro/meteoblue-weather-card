@@ -33,6 +33,7 @@ class MeteoblueWeather(WeatherEntity):
         self._lat = lat
         self._lon = lon
         self._data = None
+        self._city = None  # Store the city name
         self._last_update = None
 
     async def async_update(self):
@@ -41,10 +42,11 @@ class MeteoblueWeather(WeatherEntity):
             _LOGGER.debug("Skipping update; within scan interval")
             return
 
-        url = f"https://my.meteoblue.com/packages/basic-1h_basic-day?apikey={self._api_key}&lat={self._lat}&lon={self._lon}&format=json"
+        # Fetch weather data
+        weather_url = f"https://my.meteoblue.com/packages/basic-1h_basic-day?apikey={self._api_key}&lat={self._lat}&lon={self._lon}&format=json"
         try:
             async with aiohttp.ClientSession() as session:
-                async with session.get(url) as response:
+                async with session.get(weather_url) as response:
                     if response.status != 200:
                         _LOGGER.error(f"Failed to fetch data from Meteoblue API: {response.status}")
                         self._data = None
@@ -65,10 +67,34 @@ class MeteoblueWeather(WeatherEntity):
             _LOGGER.error(f"Error updating Meteoblue data: {e}")
             self._data = None
 
+        # Fetch city name using reverse geocoding
+        await self._fetch_city_name()
+
+    async def _fetch_city_name(self):
+        # Use a reverse geocoding API to get the city name
+        geocode_url = f"https://nominatim.openstreetmap.org/reverse?format=json&lat={self._lat}&lon={self._lon}"
+        try:
+            async with aiohttp.ClientSession() as session:
+                async with session.get(geocode_url) as response:
+                    if response.status != 200:
+                        _LOGGER.warning(f"Failed to fetch city name from geocoding API: {response.status}")
+                        return
+
+                    data = await response.json()
+                    self._city = data.get("address", {}).get("city", "Unknown City")
+                    _LOGGER.debug(f"Fetched city name: {self._city}")
+
+        except Exception as e:
+            _LOGGER.warning(f"Error fetching city name: {e}")
+            self._city = "Unknown City"
+
     @property
     def name(self):
-        return f"Weather {self._lat}, {self._lon}"
+        # Include the city in the name
+        city = self._city if self._city else "Unknown City"
+        return f"Weather {city} ({self._lat}, {self._lon})"
 
+    # Other properties remain unchanged
     @property
     def native_temperature(self):
         if self._data and "data_1h" in self._data and "temperature" in self._data["data_1h"]:

@@ -4,6 +4,8 @@
     "filename": "meteoblue-weather-card.js",
     "domains": ["meteoblue"],
     "homeassistant": "2023.8.0",
-    "version": "1.0.4",
-    "release_tag_regex": "^v(\\d+\\.\\d+\\.\\d+)$"
+    "version": "1.10.1",
+    "release_tag_regex": "^v(\\d+\\.\\d+\\.\\d+)$",
+    "icon": "icon.png"
   }
+  

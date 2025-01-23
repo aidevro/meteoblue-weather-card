@@ -1,7 +1,7 @@
 {
   "domain": "meteoblue",
   "name": "Meteoblue Weather",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "documentation": "https://github.com/aidevro/meteoblue-weather-card",
   "dependencies": [],
   "codeowners": ["@aidevro"],

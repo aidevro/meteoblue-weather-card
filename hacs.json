@@ -1,7 +1,8 @@
 {
-  "name": "Meteoblue Weather Card & Integration",
-  "render_readme": true,
-  "filename": "meteoblue-weather-card.js",
-  "domains": ["meteoblue"],
-  "homeassistant": "2023.8.0"
-}
+    "name": "Meteoblue Weather Card",
+    "render_readme": true,
+    "filename": "meteoblue-weather-card.js",
+    "domains": ["meteoblue"],
+    "homeassistant": "2023.8.0",
+    "version_regex": "v(\\d+\\.\\d+\\.\\d+)"
+  }

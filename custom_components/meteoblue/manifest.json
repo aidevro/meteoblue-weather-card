@@ -1,11 +1,11 @@
 {
   "domain": "meteoblue",
-  "name": "Meteoblue",
+  "name": "Meteoblue Weather",
   "version": "1.0.0",
   "documentation": "https://github.com/aidevro/meteoblue-weather-card",
-  "issue_tracker": "https://github.com/aidevro/meteoblue-weather-card/issues",
   "dependencies": [],
   "codeowners": ["@aidevro"],
-  "requirements": ["meteoblue-api-python"],
+  "requirements": ["aiohttp"],
+  "config_flow": true,
   "iot_class": "cloud_polling"
 }
